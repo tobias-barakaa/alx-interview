@@ -4,9 +4,10 @@
     Determines if all the boxes can be opened.
 
     Args:
-    - boxes (list of lists): A list of lists where each inner list represents a box.
-                             Each box may contain keys to other boxes, and a key with the
-                             same number as a box can open that box.
+    - boxes (list of lists):
+    A list of lists where each inner list represents a box.
+    Each box may contain keys to other boxes, and a key with the
+    same number as a box can open that box.
 
     Returns:
     - bool: True if all boxes can be opened, False otherwise.
