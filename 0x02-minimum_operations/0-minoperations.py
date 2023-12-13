@@ -3,6 +3,7 @@
 minimum operations
 """
 
+
 def minOperations(n):
     """
     Calculate the minimum
