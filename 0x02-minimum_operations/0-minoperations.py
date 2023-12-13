@@ -1,6 +1,7 @@
 def minOperations(n):
     """
-    Calculate the minimum number of operations required to achieve 'n' characters in a file.
+    Calculate the minimum
+    number of operations required to achieve 'n' characters in a file.
 
     Parameters:
     n (int): The target number of characters.
@@ -14,14 +15,12 @@ def minOperations(n):
     operations = 0
     i = 2
 
-    
     while i * i <= n:
         while n % i == 0:
             operations += i
             n //= i
         i += 1
 
-    
     if n > 1:
         operations += n
 
