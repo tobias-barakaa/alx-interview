@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+"""
+minimum operations
+"""
+
 def minOperations(n):
     """
     Calculate the minimum number of operations required to achieve 'n' characters in a file.
