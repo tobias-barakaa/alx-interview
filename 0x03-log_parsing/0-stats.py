@@ -3,11 +3,13 @@
 import sys
 from collections import defaultdict
 
+
 def print_stats(total_size, status_counts):
     """Print statistics based on total size and status counts."""
     print(f"File size: {total_size}")
     for code in sorted(status_counts.keys()):
         print(f"{code}: {status_counts[code]}")
+
 
 def parse_line(line):
     """Parse a log line and extract relevant information."""
@@ -18,6 +20,7 @@ def parse_line(line):
     if status_code.isdigit() and int(status_code) in {200, 301, 400, 401, 403, 404, 405, 500}:
         return int(status_code), int(file_size)
     return None
+
 
 total_size = 0
 status_counts = defaultdict(int)
