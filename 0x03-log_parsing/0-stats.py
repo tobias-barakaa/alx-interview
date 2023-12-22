@@ -1,44 +1,52 @@
-!/usr/bin/python3
+
+#!/usr/bin/python3
 """
 Log parsing
 """
+
 import sys
 
 
-def print_metrics(file_size, status_codes):
-    """
-    Print metrics
-    """
-    print("File size: {}".format(file_size))
-    codes_sorted = sorted(status_codes.keys())
-    for code in codes_sorted:
-        if status_codes[code] > 0:
-            print("{}: {}".format(code, status_codes[code]))
+def initialize_stats() -> dict:
+    codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
+    return {k: 0 for k in codes}
 
 
-codes_count = {'200': 0, '301': 0, '400': 0, '401': 0,
-               '403': 0, '404': 0, '405': 0, '500': 0}
-file_size_total = 0
-count = 0
+def parse_line(line: str) -> tuple:
+    try:
+        data = line.split()
+        status_code = data[-2]
+        file_size = int(data[-1])
+        return status_code, file_size
+    except (IndexError, ValueError):
+        return None, 0
 
-if __name__ == "__main__":
+
+def print_stats(stats: dict, file_size: int) -> None:
+    print("File size: {:d}".format(file_size))
+    for k, v in sorted(stats.items()):
+        if v:
+            print("{}: {}".format(k, v))
+
+
+def main():
+    filesize, count = 0, 0
+    stats = initialize_stats()
+
     try:
         for line in sys.stdin:
-            try:
-                status_code = line.split()[-2]
-                if status_code in codes_count.keys():
-                    codes_count[status_code] += 1
-                # Grab file size
-                file_size = int(line.split()[-1])
-                file_size_total += file_size
-            except Exception:
-                pass
-            # print metrics if 10 lines have been read
             count += 1
-            if count == 10:
-                print_metrics(file_size_total, codes_count)
-                count = 0
+            status_code, file_size = parse_line(line)
+            if status_code in stats:
+                stats[status_code] += 1
+            filesize += file_size
+            if count % 10 == 0:
+                print_stats(stats, filesize)
+        print_stats(stats, filesize)
     except KeyboardInterrupt:
-        print_metrics(file_size_total, codes_count)
+        print_stats(stats, filesize)
         raise
-   print_metrics(file_size_total, codes_count)
+
+
+if __name__ == '__main__':
+    main()
