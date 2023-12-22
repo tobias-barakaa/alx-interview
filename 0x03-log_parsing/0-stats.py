@@ -5,9 +5,11 @@ Log parsing
 
 import sys
 
+
 def initialize_stats() -> dict:
     codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
     return {k: 0 for k in codes}
+
 
 def parse_line(line: str) -> tuple:
     try:
@@ -18,11 +20,13 @@ def parse_line(line: str) -> tuple:
     except (IndexError, ValueError):
         return None, 0
 
+
 def print_stats(stats: dict, file_size: int) -> None:
     print("File size: {:d}".format(file_size))
     for k, v in sorted(stats.items()):
         if v:
             print("{}: {}".format(k, v))
+
 
 def main():
     filesize, count = 0, 0
@@ -41,6 +45,7 @@ def main():
     except KeyboardInterrupt:
         print_stats(stats, filesize)
         raise
+
 
 if __name__ == '__main__':
     main()
