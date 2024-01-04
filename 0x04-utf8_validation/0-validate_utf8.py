@@ -6,7 +6,7 @@ utf-8 validation
 
 def validUTF8(data):
     """
-    method that determines if a given data set represents a valid UTF-8 encoding
+    method that determine if a given data set represents a valid UTF-8 encoding
     """
     n_bytes = 0
     for num in data:
