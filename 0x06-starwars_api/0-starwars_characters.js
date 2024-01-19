@@ -1,26 +1,29 @@
 #!/usr/bin/node
 
-const request = require('request');
+const request = require('request-promise-native');
 
-const movieId = process.argv[2];
+async function getCharacterNames(movieId) {
+  try {
+    const filmResponse = await request(`https://swapi-api.alx-tools.com/api/films/${movieId}`);
+    const characters = JSON.parse(filmResponse).characters;
 
-request(`https://swapi-api.alx-tools.com/api/films/${movieId}`,
-(error, response, body) => {
-    if (error) {
-        console.error(error);
-    } else {
-        const filmData = JSON.parse(body);
-        const characters = filmData.characters;
+    const characterPromises = characters.map(async characterId => {
+      try {
+        const characterResponse = await request(characterId);
+        console.log(JSON.parse(characterResponse).name);
+      } catch (error) {
+        console.error(`Error: Unable to fetch character data for ${characterId}`);
+      }
+    });
 
-        characters.forEach(characterUrl => {
-            request(characterUrl, (error, response, body) => {
-                if (error) {
-                    console.error(error);
-                } else {
-                    const characterData = JSON.parse(body);
-                    console.log(characterData.name);
-                }
-            });
-        });
-    }
-});
+    await Promise.all(characterPromises);
+
+  } catch (error) {
+    console.error(`Error: Unable to fetch movie data for ID ${movieId}`);
+  }
+}
+
+if (process.argv.length !== 3) {
+  console.log("Usage: node script.js <movie_id>");
+  process.exit(1);
+}
