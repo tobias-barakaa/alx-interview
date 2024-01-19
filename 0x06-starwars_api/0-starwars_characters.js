@@ -1,29 +1,29 @@
 #!/usr/bin/node
 
-const request = require('request-promise-native');
+const request = require('request-promise');
+const movieId = process.argv[2];
+const url = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
 
-async function getCharacterNames(movieId) {
+async function fetchCharacterData(characterId) {
   try {
-    const filmResponse = await request(`https://swapi-api.alx-tools.com/api/films/${movieId}`);
-    const characters = JSON.parse(filmResponse).characters;
-
-    const characterPromises = characters.map(async characterId => {
-      try {
-        const characterResponse = await request(characterId);
-        console.log(JSON.parse(characterResponse).name);
-      } catch (error) {
-        console.error(`Error: Unable to fetch character data for ${characterId}`);
-      }
-    });
-
-    await Promise.all(characterPromises);
-
+    const body = await request(characterId);
+    console.log(JSON.parse(body).name);
   } catch (error) {
-    console.error(`Error: Unable to fetch movie data for ID ${movieId}`);
+    console.error(`Error fetching character: ${error.message}`);
   }
 }
 
-if (process.argv.length !== 3) {
-  console.log("Usage: node script.js <movie_id>");
-  process.exit(1);
+async function main() {
+  try {
+    const body = await request(url);
+    const characters = JSON.parse(body).characters;
+
+    for (const characterId of characters) {
+      await fetchCharacterData(characterId);
+    }
+  } catch (error) {
+    console.error(`Error fetching movie data: ${error.message}`);
+  }
 }
+
+main();
