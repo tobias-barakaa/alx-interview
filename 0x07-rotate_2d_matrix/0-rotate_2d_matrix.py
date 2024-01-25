@@ -21,6 +21,7 @@ def rotate_2d_matrix(matrix):
     for row in matrix:
         row.reverse()
 
+
 # Test the function
 if __name__ == "__main__":
     matrix = [[1, 2, 3],
