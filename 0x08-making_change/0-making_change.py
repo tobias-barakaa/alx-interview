@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 Module for making change problem
 """
@@ -29,8 +30,3 @@ def makeChange(coins, total):
             dp[amount] = min(dp[amount], dp[amount - coin] + 1)
 
     return dp[total] if dp[total] != float('inf') else -1
-
-
-if __name__ == "__main__":
-    print(makeChange([1, 2, 25], 37))
-    print(makeChange([1256, 54, 48, 16, 102], 1453))
