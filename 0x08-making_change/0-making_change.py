@@ -35,3 +35,11 @@ def makeChange(coins, total):
             dp[amount] = min(dp[amount], dp[amount - coin] + 1)
 
     return dp[total] if dp[total] != float('inf') else -1
+
+
+if __name__ == "__main__":
+    # Example usage
+    coins = [1, 2, 25]
+    total_amount = 37
+    result = makeChange(coins, total_amount)
+    print(f"The fewest number of coins needed for {total_amount}: {result}")
