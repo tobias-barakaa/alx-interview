@@ -3,7 +3,6 @@
 Module for making change problem
 """
 
-
 def makeChange(coins, total):
     """
     Function to determine the fewest number of coins needed to
@@ -17,9 +16,8 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    """ Initialize a table to store the minimum number of
-    coins for each amount
-    """
+    # Initialize a table to store the minimum number of
+    # coins for each amount
     dp = [float('inf')] * (total + 1)
     dp[0] = 0
 
@@ -29,3 +27,10 @@ def makeChange(coins, total):
             dp[amount] = min(dp[amount], dp[amount - coin] + 1)
 
     return dp[total] if dp[total] != float('inf') else -1
+
+if __name__ == "__main__":
+    # Example usage:
+    coins = [1, 2, 5]
+    total = 11
+    result = makeChange(coins, total)
+    print(f"The fewest number of coins needed to make {total} is: {result}")
