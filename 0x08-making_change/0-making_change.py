@@ -6,7 +6,7 @@ Module for making change problem
 
 def makeChange(coins, total):
     """
-    Function to determine the fewest number of coins needed to 
+    Function to determine the fewest number of coins needed to
     meet a given amount total
     Args:
         coins: list of the values of the coins in your possession
@@ -17,7 +17,7 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    """ Initialize a table to store the minimum number of 
+    """ Initialize a table to store the minimum number of
     coins for each amount
     """
     dp = [float('inf')] * (total + 1)
