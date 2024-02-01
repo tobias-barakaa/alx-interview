@@ -1,19 +1,31 @@
 #!/usr/bin/python3
-""" number of coins
+"""
+Module for making change problem
 """
 
-def makeChange(self, coins, total):
-    """ makeChange
+
+def makeChange(coins, total):
+    """
+    Function to determine the fewest number of coins needed to 
+    meet a given amount total
+    Args:
+        coins: list of the values of the coins in your possession
+        total: amount to be made with the coins
+    Returns:
+        Fewest number of coins needed to meet the total
     """
     if total <= 0:
         return 0
-    coins.sort(reverse=True)
-    num_coins = 0
+
+    """ Initialize a table to store the minimum number of 
+    coins for each amount
+    """
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0
+
+    # Fill the table using dynamic programming
     for coin in coins:
-        if total <= 0:
-            break
-        num_coins += total // coin
-        total = total % coin
-    if total != 0:
-        return -1
-    return num_coins
+        for amount in range(coin, total + 1):
+            dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+
+    return dp[total] if dp[total] != float('inf') else -1
