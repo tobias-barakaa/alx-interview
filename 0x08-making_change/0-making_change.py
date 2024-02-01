@@ -6,26 +6,20 @@ Module for making change problem
 
 def makeChange(coins, total):
     """
-    Find the fewest number of coins needed to meet a given total amount.
-
+    Function to determine the fewest number of coins needed to
+    meet a given amount total
     Args:
-        coins (list): List of coin denominations.
-        total (int): The target total amount.
-
+        coins: list of the values of the coins in your possession
+        total: amount to be made with the coins
     Returns:
-        int: Fewest number of coins needed to meet the total.
-             Returns -1 if the total cannot be met by any combination of coins.
-
-    Raises:
-        ValueError: If the input total is less than or equal to zero.
-
-    Note:
-        This function uses dynamic programming to optimize the solution.
+        Fewest number of coins needed to meet the total
     """
     if total <= 0:
-        raise ValueError("Total amount must be greater than zero.")
+        return 0
 
-    # Initialize a table to store the minimum number of coins for each amount
+    """ Initialize a table to store the minimum number of
+    coins for each amount
+    """
     dp = [float('inf')] * (total + 1)
     dp[0] = 0
 
@@ -38,8 +32,5 @@ def makeChange(coins, total):
 
 
 if __name__ == "__main__":
-    # Example usage
-    coins = [1, 2, 25]
-    total_amount = 37
-    result = makeChange(coins, total_amount)
-    print(f"The fewest number of coins needed for {total_amount}: {result}")
+    print(makeChange([1, 2, 25], 37))
+    print(makeChange([1256, 54, 48, 16, 102], 1453))
