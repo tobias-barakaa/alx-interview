@@ -15,14 +15,8 @@ def makeChange(coins, total):
     """
     if total <= 0:
         return 0
-
-    """ Initialize a table to store the minimum number of
-    coins for each amount
-    """
     dp = [float('inf')] * (total + 1)
     dp[0] = 0
-
-    # Fill the table using dynamic programming
     for coin in coins:
         if coin > total:
             continue
