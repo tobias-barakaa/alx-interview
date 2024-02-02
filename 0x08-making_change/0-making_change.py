@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""
-Module for making change problem
-"""
+"""Module for making change problem"""
+
 
 def makeChange(coins, total):
     """
