@@ -2,6 +2,7 @@
 """
 Prime Game to check the prime numbers"""
 
+
 def isWinner(x, nums):
     """Prime Game to check the prime numbers
     Args:
