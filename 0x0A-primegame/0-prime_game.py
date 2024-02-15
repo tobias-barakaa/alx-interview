@@ -4,17 +4,42 @@ Prime Game"""
 
 
 def isWinner(x, nums):
-    """Prime Game"""
-    if not nums or x < 1:
+    def is_prime(num):
+        if num <= 1:
+            return False
+        if num == 2:
+            return True
+        if num % 2 == 0:
+            return False
+        for i in range(3, int(num**0.5) + 1, 2):
+            if num % i == 0:
+                return False
+        return True
+
+    def find_next_prime(start, nums):
+        for num in range(start, max(nums) + 1):
+            if is_prime(num) and num in nums:
+                return num
         return None
-    n = max(nums)
-    primes = [False, False] + [True for i in range(n - 1)]
-    for i in range(2, int(n ** 0.5) + 1):
-        if primes[i]:
-            for j in range(i * i, n + 1, i):
-                primes[j] = False
-    primes = [i for i, j in enumerate(primes) if j]
-    wins = 0
-    for n in nums:
-        wins += sum(1 for i in primes if i <= n)
-    return "Ben" if wins % 2 == 0 else "Maria"
+
+    wins = {'Maria': 0, 'Ben': 0}
+
+    for i in range(x):
+        turn = 'Maria'
+        current_nums = list(range(1, nums[i] + 1))
+
+        while True:
+            prime = find_next_prime(2, current_nums)
+            if prime is None:
+                break
+            current_nums = [num for num in current_nums if num % prime != 0]
+            turn = 'Ben' if turn == 'Maria' else 'Maria'
+
+        if turn == 'Maria':
+            wins['Maria'] += 1
+        else:
+            wins['Ben'] += 1
+
+    if wins['Maria'] == wins['Ben']:
+        return None
+    return max(wins, key=wins.get)
