@@ -5,39 +5,16 @@ Prime Game"""
 
 def isWinner(x, nums):
     """Prime Game"""
-    def isPrime(n):
-        """Prime Game"""
-        if n <= 1:
-            return False
-        if n <= 3:
-            return True
-        if n % 2 == 0 or n % 3 == 0:
-            return False
-        i = 5
-        while i * i <= n:
-            if n % i == 0 or n % (i + 2) == 0:
-                return False
-            i += 6
-        return True
-
-    def calculate_primes(n):
-        """Prime Game"""
-        primes = [0] * (n + 1)
-        for i in range(1, n + 1):
-            if isPrime(i):
-                primes[i] = 1
-        return primes
-
-    def calculate_winner(primes):
-        """Prime Game"""
-        c = 0
-        for i in range(len(primes)):
-            if primes[i] == 1:
-                c += 1
-        if c % 2 == 0:
-            return "Ben"
-        return "Maria"
-
-    primes = calculate_primes(max(nums))
-    winner = calculate_winner(primes)
-    return winner
+    if not nums or x < 1:
+        return None
+    n = max(nums)
+    primes = [False, False] + [True for i in range(n - 1)]
+    for i in range(2, int(n ** 0.5) + 1):
+        if primes[i]:
+            for j in range(i * i, n + 1, i):
+                primes[j] = False
+    primes = [i for i, j in enumerate(primes) if j]
+    wins = 0
+    for n in nums:
+        wins += sum(1 for i in primes if i <= n)
+    return "Ben" if wins % 2 == 0 else "Maria"
