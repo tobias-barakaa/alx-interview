@@ -5,24 +5,25 @@ Prime Game
 
 
 def isWinner(x, nums):
-    """
-    Prime Game
-    """
-    if not nums or x < 1:
-        return None
-
+    """ 
+    prime game code"""
     n = max(nums)
-    primes = [False, False] + [True for i in range(n - 1)]
-    for i in range(2, int(n ** 0.5) + 1):
-        if primes[i] is True:
-            for j in range(i ** 2, n + 1, i):
-                primes[j] = False
-
-    primes = [i for i, j in enumerate(primes) if j is True]
-
-    count = 0
-    for i in nums:
-        if i in primes:
-            count += 1
-
-    return "Ben" if count % 2 == 0 else "Maria"
+    primes = [True for i in range(max(n + 1, 2))]
+    p = 2
+    while p * p <= n:
+        if primes[p]:
+            for i in range(p * p, n + 1, p):
+                primes[i] = False
+        p += 1
+    primes[0] = primes[1] = False
+    c = 0
+    for i in range(len(primes)):
+        if primes[i]:
+            c += 1
+        primes[i] = c
+    player = 0
+    for n in nums:
+        player ^= primes[n] % 2 == 0
+    if player == 0:
+        return "Ben"
+    return "Maria"
