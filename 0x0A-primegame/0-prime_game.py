@@ -1,29 +1,31 @@
 #!/usr/bin/python3
 """
-Prime Game
-"""
+Prime Game to check the prime numbers"""
 
 
 def isWinner(x, nums):
-    """ 
-    prime game code"""
+    """Prime Game to check the prime numbers
+    Args:
+        x: the number of rounds
+        nums: the list of numbers
+    Returns:
+        the winner of the game
+    """
+    if nums is None or x < 1:
+        return None
     n = max(nums)
-    primes = [True for i in range(max(n + 1, 2))]
-    p = 2
-    while p * p <= n:
-        if primes[p]:
-            for i in range(p * p, n + 1, p):
-                primes[i] = False
-        p += 1
+    primes = [True for i in range(n + 1)]
     primes[0] = primes[1] = False
-    c = 0
-    for i in range(len(primes)):
+    for i in range(2, int(n ** 0.5) + 1):
         if primes[i]:
-            c += 1
-        primes[i] = c
-    player = 0
-    for n in nums:
-        player ^= primes[n] % 2 == 0
-    if player == 0:
+            for j in range(i * i, n + 1, i):
+                primes[j] = False
+    primes = [i for i, prime in enumerate(primes) if prime]
+    primes = primes[1:]
+    count = 0
+    for i in nums:
+        if i in primes:
+            count += 1
+    if count % 2 == 0:
         return "Ben"
     return "Maria"
