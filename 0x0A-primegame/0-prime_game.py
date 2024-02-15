@@ -4,7 +4,7 @@ Prime Game to check the prime numbers"""
 
 
 def isWinner(x, nums):
-    """Prime Game to check the prime numbers
+    """Prime Game
     """
     if not nums or x < 1:
         return None
@@ -15,9 +15,17 @@ def isWinner(x, nums):
             for j in range(i * i, n + 1, i):
                 primes[j] = False
     primes = [i for i, j in enumerate(primes) if j]
-    p1 = 0
+    primes_wins = 0
     for i in nums:
-        p1 += sum([1 for j in primes if j <= i])
-    if p1 % 2 == 0:
-        return "Ben"
-    return "Maria"
+        primes_in_game = 0
+        for j in primes:
+            if j > i:
+                break
+            primes_in_game += 1
+        if primes_in_game % 2 == 0:
+            primes_wins += 1
+    if primes_wins * 2 == len(nums):
+        return None
+    if primes_wins * 2 > len(nums):
+        return "Maria"
+    return "Ben"
