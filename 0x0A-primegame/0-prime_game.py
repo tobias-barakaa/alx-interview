@@ -1,21 +1,15 @@
 #!/usr/bin/python3
 """ 
-    Prime Game"""
-    
-
+isWinner module
+"""
 def isWinner(x, nums):
-    """ Game"""
-    x = 0
-    y = 0
-    if x == 0 or x == 1:
+    """ 
+    isWinner function
+    """
+    if x < 1:
         return None
-    for i in nums:
-        if i == 2:
-            x += 1
-        else:
-            y += 1
-    if x > y:
-        return "Maria"
-    if y > x:
-        return "Ben"
-    return None
+    if nums is None:
+        return None
+    if len(nums) < x:
+        return None
+    return "Maria"
