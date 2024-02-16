@@ -4,8 +4,8 @@ isWinner module
 """
 
 
-def isWinner(x, nums) -> str:
-    """
+def isWinner(x, nums):
+    """ 
     Prime Game
     """
     if x < 1 or not nums:
