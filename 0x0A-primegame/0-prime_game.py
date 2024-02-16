@@ -26,4 +26,3 @@ def isWinner(x, nums):
     if count % 2 == 0:
         return "Ben"
     return "Maria"
-
