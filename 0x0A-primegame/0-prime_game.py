@@ -4,16 +4,26 @@ Prime Game to check the prime numbers"""
 
 
 def isWinner(x, nums):
-    """ 
-    Game Prime"""
-    if nums is None or x < 1:
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(num ** 0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    def calculate_winner(n):
+        prime_count = sum(1 for num in range(2, n + 1) if is_prime(num))
+        # If there are an even number of primes, Ben wins. Otherwise, Maria wins.
+        return "Ben" if prime_count % 2 == 0 else "Maria"
+
+    winners = [calculate_winner(n) for n in nums]
+    maria_wins = winners.count("Maria")
+    ben_wins = winners.count("Ben")
+
+    if maria_wins > ben_wins:
+        return "Maria"
+    elif ben_wins > maria_wins:
+        return "Ben"
+    else:
         return None
-    n = max(nums)
-    primes = [False, False] + [True for i in range(n - 1)]
-    for i in range(2, int(n ** 0.5) + 1):
-        if primes[i]:
-            for j in range(i * i, n + 1, i):
-                primes[j] = False
-    primes = [i for i, j in enumerate(primes) if j]
-    print(primes)
-    return "Maria"
