@@ -14,7 +14,7 @@ def isWinner(x, nums):
 
     def calculate_winner(n):
         prime_count = sum(1 for num in range(2, n + 1) if is_prime(num))
-        # If there are an even number of primes, Ben wins. Otherwise, Maria wins.
+        
         return "Ben" if prime_count % 2 == 0 else "Maria"
 
     winners = [calculate_winner(n) for n in nums]
