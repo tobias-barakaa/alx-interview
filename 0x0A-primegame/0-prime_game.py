@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-""" 
+"""
 isWinner module
 """
 
 
 def isWinner(x, nums) -> str:
-    """ 
+    """
     Prime Game
     """
     if x < 1 or not nums:
