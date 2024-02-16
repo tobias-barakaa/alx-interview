@@ -12,12 +12,12 @@ def isWinner(x, nums):
                 return False
         return True
 
-    def calculate_winner(n):
+    winners = []
+    for n in nums:
         prime_count = sum(1 for num in range(2, n + 1) if is_prime(num))
         
-        return "Ben" if prime_count % 2 == 0 else "Maria"
+        winners.append("Ben" if prime_count % 2 == 0 else "Maria")
 
-    winners = [calculate_winner(n) for n in nums]
     maria_wins = winners.count("Maria")
     ben_wins = winners.count("Ben")
 
